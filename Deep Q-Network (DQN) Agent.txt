@@ -1,0 +1,22 @@
+Algorithm 1: Deep Q-Network (DQN) Agent
+1:  class DQNAgent
+2:      Initialize state_space, action_space, memory (deque), gamma, epsilon, epsilon_min, epsilon_decay, learning_rate
+3:      model ← _build_model() with Dense layers and Adam optimizer
+
+4:      procedure _build_model()
+5:          Create Sequential model with Dense layers (state_space input, 24 neurons, relu) × 2, output layer (action_space neurons, linear)
+6:          Compile model with mse loss and Adam optimizer
+7:      end procedure
+
+8:      procedure select_action(state)
+9:          if random ≤ epsilon then return random action
+10:         Predict q_values using model; return action with max q_value
+11:     end procedure
+
+12:     procedure train(state, action, reward, next_state, done)
+13:         Append to memory; if memory < 32, return
+14:         Sample minibatch; Predict q_values and next_q_values
+15:         Update q_values; Train model on minibatch_states and q_values
+16:         Decay epsilon if above epsilon_min
+17:     end procedure
+18: end class
